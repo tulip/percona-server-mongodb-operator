@@ -205,6 +205,11 @@ func (r *ReconcilePerconaServerMongoDB) Reconcile(request reconcile.Request) (re
 		return rr, err
 	}
 
+	if cr.ObjectMeta.DeletionTimestamp != nil {
+		err = r.checkFinalizers(cr)
+		return rr, err
+	}
+
 	clusterStatus := api.AppStateInit
 
 	defer func() {
@@ -228,11 +233,6 @@ func (r *ReconcilePerconaServerMongoDB) Reconcile(request reconcile.Request) (re
 	err = r.safeDownscale(cr)
 	if err != nil {
 		return reconcile.Result{}, errors.Wrap(err, "safe downscale")
-	}
-
-	if cr.ObjectMeta.DeletionTimestamp != nil {
-		err = r.checkFinalizers(cr)
-		return rr, err
 	}
 
 	err = r.reconcileUsersSecret(cr)
