@@ -38,4 +38,5 @@ replace (
 	k8s.io/api => k8s.io/api v0.17.4 // Required by client-go
 	k8s.io/apimachinery => k8s.io/apimachinery v0.17.4 // Required by client-go
 	k8s.io/client-go => k8s.io/client-go v0.17.4 // Required by prometheus-operator
+	github.com/percona/percona-backup-mongodb => github.com/percona/percona-backup-mongodb v1.6.1-0.20211103115147-aebbc24a03f2 // Required for IAM role support
 )
